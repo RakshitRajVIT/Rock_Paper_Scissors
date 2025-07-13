@@ -1,9 +1,4 @@
-'''
--1 for Rock
- 0 for Paper
- 1 for Scissors
-'''
-
+from datetime import datetime
 import random
 
 computer_dict = {-1: "Rock", 0: "Paper", 1: "Scissors"}
@@ -11,15 +6,6 @@ player_dict = {"R": -1, "P": 0, "S": 1}
 
 wins = 0
 losses = 0
-from datetime import datetime
-
-
-
-# Example usage (call this after the game ends)
-# if __name__ == "__main__":
-#     wins = int(input("Enter final wins: "))
-#     losses = int(input("Enter final losses: "))
-#     save_score(wins, losses)
 
 
 def Play_Main():
@@ -27,7 +13,7 @@ def Play_Main():
 
     print("'R' : Rock\n'S' : Scissors\n'P' : Paper")
 
-    computer_choice = random.choice([-1, 0, 1])  # Computer Choice
+    computer_choice = random.choice([-1, 0, 1])
 
     while True:
         players_choice = input("\nEnter Your Choice: ").upper()
@@ -50,18 +36,17 @@ def Play_Main():
         print("You Lose")
         losses += 1
 
+
 def save_score(wins, losses, filename="scores.txt"):
     today = datetime.now().strftime("%Y-%m-%d")
     current_time = datetime.now().strftime("%H:%M:%S")
     new_entry = f"{today} {current_time} - Wins: {wins}, Losses: {losses}\n"
-
 
     try:
         with open(filename, "r") as file:
             lines = file.readlines()
     except FileNotFoundError:
         lines = []
-
 
     highest_today = 0
     for line in lines:
@@ -72,15 +57,14 @@ def save_score(wins, losses, filename="scores.txt"):
             except:
                 continue
 
-
     if wins > highest_today:
         new_entry += f"NEW HIGH SCORE for {today}: {wins} wins!\n"
-
 
     with open(filename, "a") as file:
         file.write(new_entry)
 
     print("Score saved successfully.")
+
 
 while True:
     Play_Main()
@@ -92,4 +76,3 @@ while True:
         print(f"Total Losses: {losses}")
         save_score(wins, losses)
         break
-
